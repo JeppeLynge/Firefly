@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -31,6 +30,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,7 +48,7 @@ SUBGHZ_HandleTypeDef hsubghz;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+static const uint8_t IMU_ADDR = 0x28 << 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -74,6 +74,12 @@ static void MX_USART1_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  /* Buffer used for transmission */
+  uint8_t I2CRxBuf[12];
+
+  /* Buffer used for reception */
+  uint8_t I2CTxBuf[12];
+
 
   /* USER CODE END 1 */
 
@@ -107,11 +113,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_RESET);
-    HAL_Delay(500);
+    HAL_Delay(100);
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_SET);
-    HAL_Delay(500);
+    HAL_Delay(100);
+    /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
