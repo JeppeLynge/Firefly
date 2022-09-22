@@ -1,10 +1,10 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
-  ******************************************************************************
+  * @file    mw_log_conf.h
+  * @author  MCD Application Team
+  * @brief   Configure (enable/disable) traces for CM0
+  *******************************************************************************
   * @attention
   *
   * Copyright (c) 2022 STMicroelectronics.
@@ -19,17 +19,14 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
+#ifndef __MW_LOG_CONF_H__
+#define __MW_LOG_CONF_H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32wlxx_hal.h"
-
-/* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -40,48 +37,40 @@ extern "C" {
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
+#define MW_LOG_ENABLED
+
 /* USER CODE BEGIN EC */
 
 /* USER CODE END EC */
 
+/* External variables --------------------------------------------------------*/
+/* USER CODE BEGIN EV */
+
+/* USER CODE END EV */
+
 /* Exported macro ------------------------------------------------------------*/
+#ifdef MW_LOG_ENABLED
+/* USER CODE BEGIN Mw_Logs_En*/
+/* Map your own trace mechanism or to map UTIL_ADV_TRACE see examples from CubeFw, i.e.:
+                             do{ {UTIL_ADV_TRACE_COND_FSend(VL, T_REG_OFF, TS, __VA_ARGS__);} }while(0) */
+#define MW_LOG(TS,VL, ...)
+/* USER CODE END Mw_Logs_En */
+#else  /* MW_LOG_ENABLED */
+/* USER CODE BEGIN Mw_Logs_Dis*/
+#define MW_LOG(TS,VL, ...)
+/* USER CODE END Mw_Logs_Dis */
+#endif /* MW_LOG_ENABLED */
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
-
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
-
-/* Private defines -----------------------------------------------------------*/
-#define LED_Pin GPIO_PIN_3
-#define LED_GPIO_Port GPIOB
-#define INT_IMU_Pin GPIO_PIN_5
-#define INT_IMU_GPIO_Port GPIOA
-#define nRESET_IMU_Pin GPIO_PIN_6
-#define nRESET_IMU_GPIO_Port GPIOA
-#define GPS_RESET_Pin GPIO_PIN_7
-#define GPS_RESET_GPIO_Port GPIOA
-#define Camera_2_Pin GPIO_PIN_8
-#define Camera_2_GPIO_Port GPIOA
-#define Camera_1_Pin GPIO_PIN_9
-#define Camera_1_GPIO_Port GPIOA
-#define COTS1_Pin GPIO_PIN_2
-#define COTS1_GPIO_Port GPIOB
-#define COTS1B12_Pin GPIO_PIN_12
-#define COTS1B12_GPIO_Port GPIOB
-#define nBOOT_IMU_Pin GPIO_PIN_12
-#define nBOOT_IMU_GPIO_Port GPIOA
-void   MX_SUBGHZ_Init(void);
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __MAIN_H */
+#endif /*__MW_LOG_CONF_H__ */
