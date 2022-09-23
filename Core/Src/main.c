@@ -145,11 +145,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_RESET);
-    HAL_Delay(100);
-
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_SET);
-    HAL_Delay(100);
+    HAL_Delay(500);
+
+
+    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_RESET);
+    HAL_Delay(500);
+
+    strcpy((char*)I2CTxBuf, "Hello!/r/n");
+    Radio.Send(I2CTxBuf, 12);
+
+
 
     /* USER CODE END WHILE */
     MX_SubGHz_Phy_Process();
