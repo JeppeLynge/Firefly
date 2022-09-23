@@ -34,6 +34,25 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define RF_FREQUENCY 868000000 // Hz
+#define TX_OUTPUT_POWER 4
+
+#define LORA_BANDWIDTH                              2         // [0: 125 kHz,
+//  1: 250 kHz,
+//  2: 500 kHz,
+//  3: Reserved]
+#define LORA_SPREADING_FACTOR                       10         // [SF7..SF12]
+#define LORA_CODINGRATE                             1         // [1: 4/5,
+//  2: 4/6,
+//  3: 4/7,
+//  4: 4/8]
+#define LORA_PREAMBLE_LENGTH                        8         // Same for Tx and Rx
+#define LORA_SYMBOL_TIMEOUT                         5         // Symbols
+#define LORA_FIX_LENGTH_PAYLOAD_ON                  false
+#define LORA_IQ_INVERSION_ON                        false
+
+#define LORA_TX_BUFFER_SIZE 128
+#define LORA_RX_BUFFER_SIZE 128
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -109,6 +128,15 @@ int main(void)
   MX_SubGHz_Phy_Init();
 
   /* USER CODE BEGIN 2 */
+  Radio.SetChannel(RF_FREQUENCY);
+	Radio.SetTxConfig(MODEM_LORA, TX_OUTPUT_POWER, 0, LORA_BANDWIDTH,
+	LORA_SPREADING_FACTOR, LORA_CODINGRATE, LORA_PREAMBLE_LENGTH,
+	LORA_FIX_LENGTH_PAYLOAD_ON,
+	true, 0, 0, LORA_IQ_INVERSION_ON, 3000);
+
+	Radio.SetPublicNetwork(false);
+
+	Radio.SetMaxPayloadLength(MODEM_LORA, LORA_TX_BUFFER_SIZE);
 
 
   /* USER CODE END 2 */
