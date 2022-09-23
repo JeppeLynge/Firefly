@@ -19,6 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "app_subghz_phy.h"
+#include "radio.h"
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -49,7 +51,10 @@ SUBGHZ_HandleTypeDef hsubghz;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-
+static const uint32_t I2CTxBuffer_size = 128;
+static const uint32_t I2CRxBuffer_size = 128;
+static const uint8_t IMU_ADDR = 0x28 << 1;
+static const char HELLO[] = "Hello/r/n";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -74,7 +79,10 @@ static void MX_USART1_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  uint8_t I2CRxBuf[I2CRxBuffer_size];
 
+  /* Buffer used for reception */
+  uint8_t I2CTxBuf[I2CTxBuffer_size];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,7 +107,9 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_SubGHz_Phy_Init();
+
   /* USER CODE BEGIN 2 */
+
 
   /* USER CODE END 2 */
 
@@ -107,6 +117,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_RESET);
+    HAL_Delay(100);
+
+    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,GPIO_PIN_SET);
+    HAL_Delay(100);
+
     /* USER CODE END WHILE */
     MX_SubGHz_Phy_Process();
 
@@ -265,6 +281,7 @@ void MX_SUBGHZ_Init(void)
   {
     Error_Handler();
   }
+  HAL_SUBGHZ_MspInit(&hsubghz);
   /* USER CODE BEGIN SUBGHZ_Init 2 */
 
   /* USER CODE END SUBGHZ_Init 2 */

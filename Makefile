@@ -37,8 +37,10 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 Core/Src/main.c \
+Core/Src/sys_app.c \
 Core/Src/stm32wlxx_it.c \
 Core/Src/stm32wlxx_hal_msp.c \
+Core/Src/timer_if.c \
 Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_i2c.c \
 Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_i2c_ex.c \
 Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_rcc.c \
@@ -60,7 +62,17 @@ Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_tim_ex.c \
 Core/Src/system_stm32wlxx.c \
 Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_subghz.c \
 Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_uart.c \
-Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_uart_ex.c
+Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_uart_ex.c \
+Utilities/timer/stm32_timer.c \
+Utilities/sequencer/stm32_seq.c \
+Utilities/misc/stm32_mem.c \
+Utilities/misc/stm32_systime.c \
+Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c \
+Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.c \
+Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_fw.c \
+SubGHz_Phy/Target/radio_board_if.c \
+SubGHz_Phy/App/app_subghz_phy.c \
+SubGHz_Phy/App/subghz_phy_app.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -122,8 +134,14 @@ C_INCLUDES =  \
 -IDrivers/STM32WLxx_HAL_Driver/Inc \
 -IDrivers/STM32WLxx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32WLxx/Include \
--IDrivers/CMSIS/Include
-
+-IDrivers/CMSIS/Include \
+-ISubGHz_Phy/App \
+-ISubGHz_Phy/Target \
+-IMiddlewares/Third_Party/SubGHz_Phy \
+-IUtilities/timer \
+-IUtilities/sequencer \
+-IUtilities/misc \
+-IUtilities/lpm/tiny_lpm \
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
